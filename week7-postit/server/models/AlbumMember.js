@@ -12,8 +12,15 @@ albumId: { type: ObjectId, required: true, ref: 'Album'}
 )
 
 AlbumMemberSchema.virtual('album',{
-  localField: 'accountId',
-  ref:'Account',
+  localField: 'albumId',
+  ref:'Album',
   foreignField:'_id',
+  justOne: true
+})
+
+AlbumMemberSchema.virtual('account',{
+  localField: 'accountId',
+  ref: 'Account',
+  foreignField: '_id',
   justOne: true
 })
