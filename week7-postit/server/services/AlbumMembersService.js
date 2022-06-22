@@ -4,6 +4,12 @@ import { BadRequest, Forbidden } from "../utils/Errors"
 
 class AlbumMembersService{
 
+  async getAlbumMembers(albumId){
+    const members = await dbContext.AlbumMembers.find({ albumId })
+      .populate('account', 'name picture')
+      .populate('album', 'name coverImg')
+    return members
+  }
 
   async create(memberData){ 
   const accountId = memberData.accountId
@@ -13,8 +19,8 @@ class AlbumMembersService{
       throw new Forbidden('you are already a member')
     }
     const member = await dbContext.AlbumMembers.create(memberData)
-    await member.populate('account')
-    await member.populate('album')
+    await member.populate('account', 'name picture')
+    await member.populate('album', 'name coverImg')
     return member
   }
 
