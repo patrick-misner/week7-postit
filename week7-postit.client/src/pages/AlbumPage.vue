@@ -13,7 +13,7 @@
         <div class="bg-white elevation-2 m-4">
           MEMBERS:
           <ul>
-            <li>{{ member.name }}</li>
+            <li v-for="m in albummembers" :key="m.id"> {{ m.account.name }} </li>
           </ul>
         </div>
 
@@ -34,6 +34,7 @@ import { logger } from "../utils/Logger"
 import { albumsService } from "../services/AlbumsService"
 import { useRoute } from "vue-router"
 import { picturesService } from "../services/PicturesService"
+import { albumMembersService } from "../services/AlbumMembersService"
 export default {
 setup(){
 const route = useRoute()
@@ -47,7 +48,8 @@ onMounted( async ()=> {
   }
 })
 return{
-  pictures: computed(()=> AppState.pictures)
+  pictures: computed(()=> AppState.pictures),
+  albummembers: computed(() => AppState.albummembers)
 }
 }
 

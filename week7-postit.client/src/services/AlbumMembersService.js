@@ -1,9 +1,13 @@
+import { AppState } from "../AppState"
+import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 
 class AlbumMembersService{
 
   async getMembers(albumId){
-    const members = await api.get('')
+    const res = await api.get('api/albums/' + albumId + '/album-members')
+    AppState.albummembers = res.data
+    logger.log('get members service', AppState.albummembers)
   }
 
 }
